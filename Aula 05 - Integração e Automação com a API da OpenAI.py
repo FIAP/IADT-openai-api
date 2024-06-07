@@ -4,7 +4,7 @@ from docx import Document
 import chardet
 import json
 
-client = OpenAI(api_key='sk-proj-fOj0jhRB7ptP2EJ3xenvT3BlbkFJOQNdI98W9zyv26K2xu1u')
+client = OpenAI(api_key='')
 app = Flask(__name__)
 
 def read_docx(file):
