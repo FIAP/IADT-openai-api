@@ -3,7 +3,7 @@ from openai import OpenAI
 from docx import Document
 import chardet
 import json
-
+import numpy
 client = OpenAI(api_key='')
 app = Flask(__name__)
 
@@ -28,11 +28,11 @@ def api_gpt(text_content):
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
-        return jsonify({"error": "No file part"}), 400
+        return jsonify({"error": "Arquivo não enviado"}), 400
 
     file = request.files.get('file')
     if file.filename == '':
-        return jsonify({"error": "No selected file"}), 400
+        return jsonify({"error": "Arquivo não selecionado"}), 400
 
     if file.filename.endswith('.docx'):
         text_content = read_docx(file)
@@ -45,7 +45,7 @@ def upload_file():
             text_content = raw_data.decode(encoding)
             return api_gpt(text_content)
         except UnicodeDecodeError:
-            return jsonify({"error": "File encoding not supported"}), 400
+            return jsonify({"error": "Erro de Encoding"}), 400
 
     
     
